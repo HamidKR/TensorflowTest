@@ -2,13 +2,13 @@ import tensorflow as tf
 import numpy as np
 
 file = '/Users/Hamid/Documents/MachineLearning/NewCIFABX.csv'
-Data_ABX3 = np.loadtxt(file, delimiter=',', skiprows=1, usecols=(1, 2, 3, 4, 5, 6, 10, 11, 12, 14, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34))
-filename_queue = tf.train.string_input_producer([Data_ABX3])
+#Data_ABX3 = np.loadtxt(file, delimiter=',', skiprows=1, usecols=(1, 2, 3, 4, 5, 6, 10, 11, 12, 14, 15, 16, 18, 19, 20, 22, 23, 24, 26, 27, 28, 29, 30, 31, 32, 33, 34))
+filename_queue = tf.train.string_input_producer([file])
 reader = tf.TextLineReader()
 key, value = reader.read(filename_queue)
 # Default values, in case of empty columns. Also specifies the type of the
 # decoded result.
-record_defaults = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]
+record_defaults = [[0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.], [0.]]
 Name, a, b, c, ma, mb, mc, SG, TN, el1, p1x, p1y, p1z, el2, p2x, p2y, p2z, el3, p3x, p3y, p3z, el4, p4x, p4y, p4z, el5, p5x, p5y, p5z, Na, Eg, Ea, OmMa, Eb, De = tf.decode_csv(
     value, record_defaults=record_defaults)
 features = tf.stack([a, b, c, ma, mb, mc, p1x, p1y, p1z, p2x, p2y, p2z, p3x, p3y, p3z, p4x, p4y, p4z, p5x, p5y, p5z, Na, Eg, OmMa, Eb, De])
